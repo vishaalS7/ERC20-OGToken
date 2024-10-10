@@ -12,7 +12,7 @@ contract OGlitchTokenTest is Test {
     address bob = makeAddr("bob");
     address alice = makeAddr("alice");
 
-    uint public constant STARTING_BALANCE = 100 ether;
+    uint256 public constant STARTING_BALANCE = 100 ether;
 
     function setUp() public {
         deploy = new DeployOGlitchToken();
@@ -27,19 +27,18 @@ contract OGlitchTokenTest is Test {
     }
 
     function testAllowanceWorks() public {
-        uint initialAllowance = 1000;
+        uint256 initialAllowance = 1000;
 
-        //bob approves alice to spend toke on his behalf 
+        //bob approves alice to spend toke on his behalf
         vm.prank(bob);
         ogToken.approve(alice, initialAllowance);
 
-        uint transferAmount = 500;
+        uint256 transferAmount = 500;
 
         vm.prank(alice);
-        ogToken.transferFrom (bob, alice, transferAmount);
+        ogToken.transferFrom(bob, alice, transferAmount);
 
-        assertEq (ogToken.balanceOf(alice), transferAmount);
-        assertEq (ogToken.balanceOf(bob),  STARTING_BALANCE - transferAmount);
-
+        assertEq(ogToken.balanceOf(alice), transferAmount);
+        assertEq(ogToken.balanceOf(bob), STARTING_BALANCE - transferAmount);
     }
 }
